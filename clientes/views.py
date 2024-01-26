@@ -1,6 +1,8 @@
-import re
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
+from django.core import serializers
+import re
+import json
 
 from .models import Cliente, Carro
 
@@ -43,5 +45,7 @@ def clientes(request):
         return HttpResponse('OI')
 
 def atualiza_cliente(request):
-    print(request)
-    return JsonResponse(request)
+    id_cliente = request.POST.get('id_cliente')
+    cliente = Cliente.objects.filter(id=id_cliente)
+    cliente_json = json.loads(serializers.serialize('json', cliente))[0]['fields']
+    return JsonResponse(cliente_json)

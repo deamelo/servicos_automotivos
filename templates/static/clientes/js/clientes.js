@@ -19,3 +19,37 @@ function exibir_form(tipo) {
     att_cliente.style.display = 'block'
   }
 }
+
+function dados_cliente() {
+  id_cliente = document.getElementById('cliente-select').value
+  csrf_token = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+  data = new FormData()
+  data.append('id_cliente', id_cliente)
+
+  fetch('/clientes/atualiza_cliente/', {
+    method: 'POST',
+    headers: {
+      'X-CSRFToken': csrf_token
+    },
+    body: data
+  })
+    .then(function (result) {
+      return result.json()
+    })
+    .then(function (data) {
+      document.getElementById('form-att-cliente').style.display = 'block'
+
+      nome = document.getElementById('nome')
+      nome.value = data['nome']
+
+      sobrenome = document.getElementById('sobrenome')
+      sobrenome.value = data['sobrenome']
+
+      email = document.getElementById('email')
+      email.value = data['email']
+
+      cpf = document.getElementById('cpf')
+      cpf.value = data['cpf']
+    })
+}
