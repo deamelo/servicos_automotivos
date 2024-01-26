@@ -102,7 +102,14 @@
             <input type="submit" value="Cadastrar" class="btn-principal" />
         </form>
     </div>
-    <div id="atualizar-cliente">teste</div>
+    <div id="atualizar-cliente">
+        <br />
+        <select class="form-control">
+            {% for cliente in clientes %}
+            <option value="{{cliente.id}}">{{cliente.nome}}</option>
+            {% endfor %}
+        </select>
+    </div>
 </div>
 <script src="{% static 'clientes/js/clientes.js' %}"></script>
 {% endblock %}
