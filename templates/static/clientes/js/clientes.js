@@ -27,7 +27,7 @@ function dados_cliente() {
   data = new FormData()
   data.append('id_cliente', id_cliente)
 
-  fetch('/clientes/atualiza_cliente/', {
+  fetch('/clientes/atualizar_cliente/', {
     method: 'POST',
     headers: {
       'X-CSRFToken': csrf_token
@@ -38,18 +38,58 @@ function dados_cliente() {
       return result.json()
     })
     .then(function (data) {
-      document.getElementById('form-att-cliente').style.display = 'block'
+      info_clientes = document.getElementById('form-att-cliente')
+      info_clientes.style.display = 'block'
 
+      id = document.getElementById('id')
+      id.value = data['cliente_id']
+      console.log(id)
       nome = document.getElementById('nome')
-      nome.value = data['nome']
+      nome.value = data['cliente']['nome']
 
       sobrenome = document.getElementById('sobrenome')
-      sobrenome.value = data['sobrenome']
+      sobrenome.value = data['cliente']['sobrenome']
 
       email = document.getElementById('email')
-      email.value = data['email']
+      email.value = data['cliente']['email']
 
       cpf = document.getElementById('cpf')
-      cpf.value = data['cpf']
+      cpf.value = data['cliente']['cpf']
+
+      div_carros = document.getElementById('carros')
+      div_carros.innerHTML = ''
+
+      for (i = 0; i < data['carros'].length; i++) {
+        div_carros.innerHTML +=
+          "<form action='/clientes/atualizar_carro/" +
+          data['carros'][i]['id'] +
+          "' method='POST'>\
+          <div class='row'>\
+                  <div class='col-md'>\
+                      <input class='form-control' name='marca' type='text' value='" +
+          data['carros'][i]['fields']['marca'] +
+          "'>\
+                  </div>\
+                  <div class='col-md'>\
+                      <input class='form-control' name='modelo' type='text' value='" +
+          data['carros'][i]['fields']['modelo'] +
+          "'>\
+                  </div>\
+                  <div class='col-md'>\
+                      <input class='form-control' type='text' name='placa' value='" +
+          data['carros'][i]['fields']['placa'] +
+          "' >\
+                  </div>\
+                  <div class='col-md'>\
+                      <input class='btn btn-lg btn-success' type='submit'>\
+                  </div>\
+              </form>\
+              <div class='col-md'>\
+                  <a href='/clientes/excluir_carro/" +
+          data['carros'][i]['id'] +
+          "' class='btn btn-lg btn-danger'>EXCLUIR</a>\
+              </div>\
+          </div><br>"
+      }
     })
 }
