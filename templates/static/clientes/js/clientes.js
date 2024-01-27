@@ -30,9 +30,9 @@ function dados_cliente() {
   fetch('/clientes/atualizar_cliente/', {
     method: 'POST',
     headers: {
-      'X-CSRFToken': csrf_token
+      'X-CSRFToken': csrf_token,
     },
-    body: data
+    body: data,
   })
     .then(function (result) {
       return result.json()
@@ -104,19 +104,27 @@ function update_cliente() {
   fetch('/clientes/update_cliente/' + id, {
     method: 'POST',
     headers: {
-      'X-CSRFToken': csrf_token
+      'X-CSRFToken': csrf_token,
     },
     body: JSON.stringify({
       nome: nome,
       sobrenome: sobrenome,
       email: email,
-      cpf: cpf
-    })
+      cpf: cpf,
+    }),
   })
     .then(function (result) {
       return result.json()
     })
     .then(function (data) {
-      console.log(data)
+      if (data['status'] == '200 OK') {
+        nome = data['nome']
+        sobrenome = data['sobrenome']
+        email = data['email']
+        cpf = data['cpf']
+        console.log('Dados alterados com sucesso')
+      } else {
+        console.log('Ocorreu um erro')
+      }
     })
 }
