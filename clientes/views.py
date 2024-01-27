@@ -107,3 +107,4 @@ def update_cliente(request, id):
         return JsonResponse({'status': '200 OK', 'nome': nome, 'sobrenome': sobrenome, 'email': email, 'cpf': cpf})
     except Cliente.DoesNotExist:
         return JsonResponse({'status': '404 Not Found'})
+
