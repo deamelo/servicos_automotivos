@@ -6,7 +6,7 @@
         <div onclick="exibir_form('1')" class="col-md card-dashboard">
             <p class="text-card">Adicionar clientes</p>
         </div>
-        <!-- coment -->
+
         <div onclick="exibir_form('2')" class="col-md card-dashboard">
             <p class="text-card">Atualizar clientes</p>
         </div>
@@ -104,62 +104,11 @@
     </div>
     <div id="atualizar-cliente">
         <br />
-        <select
-            id="cliente-select"
-            onchange="dados_cliente()"
-            class="form-control"
-        >
-            <option value="">Selecione o cliente</option>
+        <select class="form-control">
             {% for cliente in clientes %}
             <option value="{{cliente.id}}">{{cliente.nome}}</option>
             {% endfor %}
         </select>
-        <br />
-        <hr />
-        <div id="form-att-cliente">
-            <input type="hidden" id="id" />
-            <p>Nome:</p>
-            <input
-                id="nome"
-                type="text"
-                class="form-control"
-                placeholder="Primeiro nome"
-            />
-            <br />
-            <p>Sobrenome:</p>
-            <input
-                id="sobrenome"
-                type="text"
-                class="form-control"
-                placeholder="Sobrenome"
-            />
-            <br />
-            <p>Email:</p>
-            <input
-                id="email"
-                type="email"
-                class="form-control"
-                placeholder="nome@email.com"
-            />
-            <br />
-            <p>CPF:</p>
-            <input
-                id="cpf"
-                type="text"
-                class="form-control"
-                placeholder="___.___.___-__"
-            />
-            <br />
-            <input
-                onclick="update_cliente()"
-                type="submit"
-                value="salvar"
-                class="btn btn-success"
-            />
-            <hr style="background-color: gray" />
-            <h2>Carros</h2>
-            <div id="carros"></div>
-        </div>
     </div>
 </div>
 <script src="{% static 'clientes/js/clientes.js' %}"></script>
