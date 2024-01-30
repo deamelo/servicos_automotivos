@@ -1,2 +1,4 @@
 Django==5.0.1
 fpdf==1.7.2
+mkdocs==1.5.3
+mkdocs-material==9.5.6
