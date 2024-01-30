@@ -9,6 +9,7 @@
 {% block 'dashboard' %}
     <br/>
     <br>
+
     <div  class='container'>
         <a class='btn btn-info' href={% url "gerar_os" servico.identificador %}>GERAR OS</a>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
@@ -43,6 +44,9 @@
                 </div>
             </div>
         </div>
+    <div class='container'>
+        {{servico.titulo}}
+
     </div>
 {% endblock  %}
 

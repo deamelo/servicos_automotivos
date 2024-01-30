@@ -1,11 +1,8 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, FileResponse
-
-from fpdf import FPDF
-from io import BytesIO
 
 from .models import Servico, ServicoAdicional
 from .forms import ServicoForm
+from django.http import HttpResponse
 
 
 def novo_servico(request):
@@ -31,9 +28,10 @@ def listar_servico(request):
     if request.method == "GET":
         servicos = Servico.objects.all()
         return render(request, 'listar_servico.html', {'servicos': servicos})
-
+    
 def servico(request, identificador):
     servico = get_object_or_404(Servico,identificador=identificador)
+
     return render(request, 'servico.html', {'servico': servico})
 
 def gerar_os(request, identificador):
@@ -82,4 +80,7 @@ def servico_adicional(request):
     servico.servico_adicional.add(servico_adicional)
 
     servico.save()
-    return HttpResponse('Salvo com sucesso!')
+
+
+    return render(request, 'servico.html', {'servico': servico})
+
