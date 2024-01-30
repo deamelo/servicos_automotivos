@@ -11,6 +11,14 @@ class CategoriaManutencao(models.Model):
     def __str__(self):
         return self.titulo
 
+class ServicoAdicional(models.Model):
+    titulo = models.CharField(max_length=50)
+    descricao = models.TextField()
+    preco = models.FloatField()
+
+    def __str__(self):
+        return self.titulo
+
 class Servico(models.Model):
     titulo = models.CharField(max_length=30)
     cliente = models.ForeignKey(Cliente, on_delete=models.SET_NULL, null=True)
@@ -20,6 +28,7 @@ class Servico(models.Model):
     finalizado = models.BooleanField(default=False)
     protocolo = models.CharField(max_length=44, null=True, blank=True)
     identificador = models.CharField(max_length=24, null=True, blank=True)
+    servico_adicional = models.ManyToManyField(ServicoAdicional)
 
     def __str__(self):
         return self.titulo
@@ -41,3 +50,5 @@ class Servico(models.Model):
             preco_total += float(categoria.preco)
 
         return preco_total
+    
+
